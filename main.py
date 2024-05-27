@@ -2,8 +2,10 @@ from lyricsgenius import Genius
 import win32gui
 import win32process
 import psutil
+import os
+import time
 
-genius = Genius("get your own api key nerd")
+genius = Genius("API KEY")
 
 def get_spotify_window_title():
     # Find the PID of spotify.exe
@@ -65,10 +67,18 @@ def main():
                 try:
                     artist, song = title.split(" - ")
                     lyrics = get_lyrics(song, artist)
-                    print(lyrics)
                     previous_title = title
+                    for line in lyrics.split("\n"):
+                        if line == "": continue
+                        print(line)
+                        time.sleep(len(line) / 30)
+                        title = get_spotify_window_title()
+                        if title != previous_title:
+                            break
+                        
                 except:
                     print("Nothing currently playing...")
+                    previous_title = title
                     pass
 
 if __name__ == "__main__":
