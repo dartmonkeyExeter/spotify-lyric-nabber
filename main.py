@@ -60,16 +60,16 @@ def get_lyrics(song, artist):
 def main():
     previous_title = ""
     while True:
-        try:
             title = get_spotify_window_title()
             if title != previous_title:
-                artist, song = title.split(" - ")
-                lyrics = get_lyrics(song, artist)
-                print(lyrics)
-                previous_title = title
-        except:
-            print("Nothing currently playing...")
-            pass
+                try:
+                    artist, song = title.split(" - ")
+                    lyrics = get_lyrics(song, artist)
+                    print(lyrics)
+                    previous_title = title
+                except:
+                    print("Nothing currently playing...")
+                    pass
 
 if __name__ == "__main__":
     main()
